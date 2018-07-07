@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br" manifest="cache.manifest">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="libs/pikaday/pikaday.css">
+  <link rel="stylesheet" href="css/app.css">
+  <title>Carcontrol</title>
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Carcontrol">
+  <link rel="icon" sizes="192x192" href="img/carcontrol-icon-192x192.png">
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Carcontrol">
+  <link rel="apple-touch-icon" href="img/carcontrol-icon-152x152.png">
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="img/carcontrol-icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#000000">
+</head>
+<body class="w3-theme-l4">
+
+  <nav class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-card-2 cc-menu-lateral" id="w3sidebar">
+    <div class="w3-container w3-theme">
+      <p class="w3-xlarge">Carcontrol</p>
+    </div>
+    <div>
+      <a class="w3-bar-item w3-button w3-text-theme w3-large" 
+      onclick="app.controller.abastecimento.listaTodos(event)" href="#">
+        Abastecimentos
+      </a>
+      <a class="w3-bar-item w3-button w3-text-theme w3-large" 
+      onclick="app.menuGrafico(event)" href="#">
+        Gráficos&nbsp;<i class="fa fa-caret-up"></i>
+      </a>
+      <div class="w3-hide">
+        <a class="w3-bar-item w3-button w3-text-theme w3-large" 
+        onclick="app.controller.abastecimento.abreFormGrafico(event)" href="#">
+          Combustíveis utilizados
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="app.fechaSideBar(event)" 
+  style="cursor: pointer;" id="w3overlay"></div>
+
+  <header class="w3-container w3-top w3-theme w3-xlarge">
+    <p>
+      <i class="fa fa-bars w3-button w3-theme w3-hide-large" onclick="app.abreSideBar(event)"></i>
+      <span class="">Carcontrol</span>
+    </p>
+  </header>
+  <div class="w3-container cc-complemento"></div>
+  
+  <div class="w3-container w3-center cc-loader">
+    <i class="material-icons w3-spin w3-xxxlarge">refresh</i>
+  </div>
+  
+  <section class="w3-modal">
+    <div class="w3-modal-content w3-card-2 w3-animate-top">
+      <header class="w3-container w3-theme">
+        <span class="w3-button w3-xlarge w3-display-topright cc-btn-dialog-close">&times;</span>
+        <h3>Aviso</h3>
+      </header>
+      <div class="w3-container">
+        <p></p>
+        <p style="display: none;"></p>
+      </div>
+      <div class="w3-container w3-light-grey w3-padding">
+        <button class="w3-button w3-right w3-white w3-border cc-btn-dialog-close">Cancelar</button>
+        <button class="w3-button w3-right w3-theme w3-border">Ok</button>
+      </div>
+    </div>
+  </section>
+  
+  <section class="w3-card w3-white w3-text-theme w3-card-2 w3-display-container w3-margin cc-container-form" hidden>
+  </section>
+  
+  <section class="w3-card w3-white w3-text-theme w3-card-2 w3-display-container w3-margin cc-container-chart" hidden>
+  </section>
+
+  <main class="w3-container w3-content"></main>
+
+  <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDMi-hahpddccc2HK64DJb18E4bS_wyq3I",
+      authDomain: "carcontrol-b541f.firebaseapp.com",
+      databaseURL: "https://carcontrol-b541f.firebaseio.com",
+      projectId: "carcontrol-b541f",
+      storageBucket: "",
+      messagingSenderId: "625983952138"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', {'packages':['corechart']});
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+  <script src="libs/pikaday/pikaday.js"></script>
+  <script src="js/helper/DateHelper.js"></script>
+  <script src="js/helper/NumberHelper.js"></script>
+  <script src="js/service/ConnectionFactory.js"></script>
+  <script src="js/abastecimento/Abastecimento.js"></script>
+  <script src="js/abastecimento/AbastecimentoBuilder.js"></script>
+  <script src="js/abastecimento/AbastecimentoDao.js"></script>
+  <script src="js/abastecimento/AbastecimentoService.js"></script>
+  <script src="js/abastecimento/AbastecimentoView.js"></script>
+  <script src="js/app-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/abastecimento/abastecimento.controller.js"></script>
+</body>
+</html>

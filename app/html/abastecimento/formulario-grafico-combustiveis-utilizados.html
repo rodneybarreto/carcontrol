@@ -1,0 +1,27 @@
+<div class="w3-container w3-theme">
+  <h4>Combustíveis utilizados</h4>
+</div>
+<form class="w3-container">
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      <p>
+        <input class="w3-input cc-field-data" type="text" name="dataIni" id="dataIni" placeholder="DD/MM/AAAA"
+        value="" onkeyup="DateHelper.formataData(event)" maxlength="10" tabindex="1" required>
+        <label for="dataIni">Início</label>
+        <span class="w3-text-red cc-field-validate"></span>
+      </p>
+    </div>
+    <div class="w3-half">
+      <p>
+        <input class="w3-input cc-field-data" type="text" name="dataFim" id="dataFim" placeholder="DD/MM/AAAA"
+        value="" onkeyup="DateHelper.formataData(event)" maxlength="10" tabindex="2" required>
+        <label for="dataFim">Fim</label>
+        <span class="w3-text-red cc-field-validate"></span>
+      </p>
+    </div>
+  </div>
+  <p>
+    <button class="w3-button w3-theme" 
+    onclick="app.controller.abastecimento.buscaAbastecimentosPorPeriodo(event)">Ok</button>
+  </p>
+</form>

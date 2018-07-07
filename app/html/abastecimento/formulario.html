@@ -1,0 +1,68 @@
+<div class="w3-container w3-theme">
+  <h4>Abastecimento</h4>
+</div>
+<form class="w3-container">
+  <input type="hidden" name="abastecimentoId" id="abastecimentoId" value="">
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      <p>
+        <input class="w3-input cc-field-data" type="text" name="data" id="data" placeholder="DD/MM/AAAA"
+        value="" onkeyup="DateHelper.formataData(event)" maxlength="10" tabindex="1" required>
+        <label for="data">Data</label>
+        <span class="w3-text-red cc-field-validate"></span>
+      </p>
+    </div>
+    <div class="w3-half">
+      <p>
+        <input class="w3-input cc-field-hora" type="text" name="hora" id="hora" placeholder="HH:MM"
+        value="" onkeyup="DateHelper.formataHora(event)" maxlength="5" tabindex="2" required>
+        <label for="hora">Hora</label>
+        <span class="w3-text-red cc-field-validate"></span>
+      </p>
+    </div>
+  </div>
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      <p>
+        <input class="w3-input w3-right-align" type="text" name="preco" id="preco" placeholder="0,000" 
+        value="" onkeyup="NumberHelper.formataValor(event, 1)" maxlength="5" tabindex="3" required>
+        <label for="preco">Preço</label>
+        <span class="w3-text-red cc-field-validate"></span>
+      </p>
+    </div>
+    <div class="w3-half">
+      <p>
+        <input class="w3-input w3-right-align" type="text" name="litros" id="litros" placeholder="0,000" 
+        value="" onkeyup="NumberHelper.formataValor(event, 2)" maxlength="6"  tabindex="4" required>
+        <label for="litros">Volume (Listros)</label>
+        <span class="w3-text-red cc-field-validate"></span>
+      </p>
+    </div>
+  </div>
+  <div class="w3-row-padding">
+    <div class="w3-half">
+    <p>
+      <input class="w3-input w3-right-align" type="text" name="odometro" id="odometro"
+      placeholder="0" value="" maxlength="6"  tabindex="5" required>
+      <label for="odometro">Odômetro (Km atual)</label>
+      <span class="w3-text-red cc-field-validate"></span>
+    </p>
+    </div>
+    <div class="w3-half">
+      <p>
+        <select class="w3-select" name="combustivel" id="combustivel"  tabindex="6" required>
+          <option value="">Selecione</option>
+          <option value="Gas. comum">Gasolina comum</option>
+          <option value="Gas. aditivada">Gasolina aditivada</option>
+          <option value="Etanol">Etanol</option>
+        </select>
+        <label for="combustivel">Combustível</label>
+        <span class="w3-text-red cc-field-validate"></span>
+      </p>
+    </div>
+  </div>
+  <p>
+    <button class="w3-button w3-theme" onclick="app.controller.abastecimento.submitForm(event)">Ok</button>
+    <button class="w3-button w3-theme" onclick="app.controller.abastecimento.fechaForm(event)">Cancelar</button>
+  </p>
+</form>
