@@ -35,10 +35,10 @@ class AbastecimentoView {
               </div>
               <div class="w3-show-inline-block w3-right">
                 <div class="w3-bar">
-                  <a href="#" class="w3-button" onclick="app.controller.abastecimento.abreFormEdicao(event, ${obj.id})">
+                  <a href="#" class="w3-button" onclick="CarcontrolApp.controller.abastecimento.abreFormEdicao(event, ${obj.id})">
                     <i class="material-icons w3-large">edit</i>
                   </a>
-                  <a href="#" class="w3-button" onclick="app.controller.abastecimento.abreDialog(event, ${obj.id})">
+                  <a href="#" class="w3-button" onclick="CarcontrolApp.controller.abastecimento.abreDialog(event, ${obj.id})">
                     <i class="material-icons w3-large">delete</i>
                   </a>
                 </div>
@@ -51,7 +51,7 @@ class AbastecimentoView {
         <div class="w3-container" style="position: relative;">
           <a class="w3-button w3-xlarge w3-circle w3-theme-action" 
           style="position: absolute; top: -70px; right: 28px;" 
-          href="#" onclick="app.controller.abastecimento.abreFormInclusao(event)">+</a>
+          href="#" onclick="CarcontrolApp.controller.abastecimento.abreFormInclusao(event)">+</a>
         </div>
       </footer>`;
     } 
@@ -62,7 +62,7 @@ class AbastecimentoView {
           <div class="w3-container" style="position: relative;">
             <a class="w3-button w3-xlarge w3-circle w3-theme-action" 
             style="position: absolute; top: -70px; right: 28px;" 
-            href="#" onclick="app.controller.abastecimento.abreFormInclusao(event)">+</a>
+            href="#" onclick="CarcontrolApp.controller.abastecimento.abreFormInclusao(event)">+</a>
           </div>
         </footer>
       `;

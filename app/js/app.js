@@ -1,3 +1,5 @@
+var CarcontrolApp = CarcontrolApp || {};
+
 (function(app, global){
   'use strict';
 
@@ -35,4 +37,4 @@
     });
   });
 
-}(app, this));
+}(CarcontrolApp, this));

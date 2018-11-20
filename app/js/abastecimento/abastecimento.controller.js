@@ -1,12 +1,13 @@
-var app = app || {};
-app.controller = app.controller || {};
-app.controller.abastecimento = app.controller.abastecimento || {};
+var CarcontrolApp = CarcontrolApp || {};
 
-app.controller.abastecimento = (function(app, global){
+(function(app, global){
+
+  app.controller = app.controller || {};
+  app.controller.abastecimento = app.controller.abastecimento || {};
 
   let _service = new AbastecimentoService();
 
-  _abreDialog = (evt, id) => { 
+  app.controller.abastecimento.abreDialog = function(evt, id) { 
     evt.preventDefault();
     app.dialog.querySelector('div p:nth-child(1)').textContent = 'Deseja excluir o abastecimento?';
     app.dialog.querySelector('div p:nth-child(2)').textContent = id;
@@ -16,7 +17,7 @@ app.controller.abastecimento = (function(app, global){
     app.dialog.style.display = 'block';
   };
 
-  _listaTodos = evt => {
+  app.controller.abastecimento.listaTodos = function(evt) {
     evt.preventDefault();
 
     _service
@@ -34,7 +35,7 @@ app.controller.abastecimento = (function(app, global){
       .catch(err => console.log(err));
   };
 
-  _abreFormInclusao = evt => {
+  app.controller.abastecimento.abreFormInclusao = function(evt) {
     evt.preventDefault();
 
     fetch('html/abastecimento/formulario.html')
@@ -55,7 +56,7 @@ app.controller.abastecimento = (function(app, global){
       .catch(err => console.log(err));
   };
 
-  _abreFormEdicao = (evt, id) => { 
+  app.controller.abastecimento.abreFormEdicao = function(evt, id) { 
     evt.preventDefault();
 
     fetch('html/abastecimento/formulario.html')
@@ -77,7 +78,7 @@ app.controller.abastecimento = (function(app, global){
     app.containerForm.removeAttribute('hidden');
   };
 
-  _removeAbastecimento = evt => {
+  app.controller.abastecimento.removeAbastecimento = function(evt) {
     evt.preventDefault();
 
     let paragrafo = evt.target.offsetParent.querySelector('div p:nth-child(2)');
@@ -96,14 +97,14 @@ app.controller.abastecimento = (function(app, global){
     app.dialog.style.display = 'none';
   };
 
-  _fechaForm = evt => {
+  app.controller.abastecimento.fechaForm = function(evt) {
     evt.preventDefault();
     app.containerForm.setAttribute('hidden', true);
     app.containerForm.innerHTML = '';
     app.main.removeAttribute('hidden');
   };
 
-  _submitForm = evt => {
+  app.controller.abastecimento.submitForm = function(evt) {
     evt.preventDefault();
     
     try {
@@ -147,7 +148,7 @@ app.controller.abastecimento = (function(app, global){
     }
   };
 
-  _abreFormGraficoCombustiveisUtilizados = evt => {
+  app.controller.abastecimento.abreFormGrafico = function(evt) {
     evt.preventDefault();
     
     fetch('html/abastecimento/formulario-grafico-combustiveis-utilizados.html')
@@ -166,7 +167,7 @@ app.controller.abastecimento = (function(app, global){
 
         _service
           .buscaAbastecimentosPorPeriodo(dataIni, dataFim)
-          .then(abastecimentos => _geraGraficoCombustiveisUtilizados(abastecimentos))
+          .then(abastecimentos => app.controller.abastecimento.geraGrafico(abastecimentos))
           .catch(err => console.log(err));
 
         app.main.setAttribute('hidden', true);
@@ -176,7 +177,7 @@ app.controller.abastecimento = (function(app, global){
       .catch(err => console.log(err)); 
   };
 
-  _buscaAbastecimentosPorPeriodo = evt => {
+  app.controller.abastecimento.buscaAbastecimentosPorPeriodo = function(evt) {
     evt.preventDefault();
 
     let frm = evt.target.form;
@@ -185,11 +186,11 @@ app.controller.abastecimento = (function(app, global){
 
     _service
       .buscaAbastecimentosPorPeriodo(dataIni, dataFim)
-      .then(abastecimentos => _geraGraficoCombustiveisUtilizados(abastecimentos))
+      .then(abastecimentos => app.controller.abastecimento.geraGrafico(abastecimentos))
       .catch(err => console.log(err));
   };
   
-  _geraGraficoCombustiveisUtilizados = abastecimentos => {
+  app.controller.abastecimento.geraGrafico = function(abastecimentos) {
     
     if (abastecimentos.length > 0) {
       let GC = abastecimentos.map(gascomum => gascomum.combustivel === 'Gas. comum')
@@ -224,17 +225,4 @@ app.controller.abastecimento = (function(app, global){
     app.containerChart.removeAttribute('hidden');
   };
 
-  return {
-    abreDialog         : _abreDialog,
-    listaTodos         : _listaTodos,
-    abreFormInclusao   : _abreFormInclusao,
-    abreFormEdicao     : _abreFormEdicao,
-    removeAbastecimento: _removeAbastecimento,
-    fechaForm          : _fechaForm,
-    submitForm         : _submitForm,
-    abreFormGrafico    : _abreFormGraficoCombustiveisUtilizados,
-    buscaAbastecimentosPorPeriodo: _buscaAbastecimentosPorPeriodo, 
-    geraGrafico        : _geraGraficoCombustiveisUtilizados
-  };
-
-}(app, this));
+}(CarcontrolApp, this));
