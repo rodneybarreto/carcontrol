@@ -79,36 +79,4 @@ class DateHelper {
     return `${hh}:${mm}`;
   }
 
-  static setDatepicker(frm) {
-    let fieldData = frm.querySelectorAll('.cc-field-data');
-
-    fieldData.forEach(elemento => {
-      return new Pikaday({
-        field: elemento,
-        firstDay: 0,
-        format: 'DD/MM/YYYY',
-        i18n: {
-          previousMonth: 'Anterior',
-          nextMonth: 'Próximo',
-          months: [
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-            'Junho',
-            'Julho',
-            'Agosto',
-            'Setembro',
-            'Outubro',
-            'Novembro',
-            'Dezembro'
-          ],
-          weekdays: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-          weekdaysShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb']
-        }
-      }); 
-    });
-  }
-  
 }

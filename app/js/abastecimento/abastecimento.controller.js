@@ -44,16 +44,38 @@ var CarcontrolApp = CarcontrolApp || {};
         app.containerForm.innerHTML = res;
         
         let frm = app.containerForm.querySelector('form');
-        DateHelper.setDatepicker(frm);
-
-        let data = new Date();
-        frm.data.value = DateHelper.dataParaTexto(data);
-        frm.hora.value = DateHelper.horaParaTexto(data);
-
-        app.main.setAttribute('hidden', true);
-        app.containerForm.removeAttribute('hidden');
+        frm.data.value = moment().format('DD/MM/YYYY');
+        frm.hora.value = moment().format('HH:mm');
+        
+        let dt = new mdDateTimePicker.default({
+          type: 'date',
+          orientation: 'PORTRAIT',
+          trigger: frm.data
+        });
+        frm.data.addEventListener('focus', function(){ 
+          dt.toggle(); 
+        });
+        frm.data.addEventListener('onOk', function(){ 
+          this.value = moment(dt.time.toString()).format('DD/MM/YYYY');
+        });
+        
+        let tm = new mdDateTimePicker.default({ 
+          type: 'time',
+          mode: true,
+          orientation: 'PORTRAIT',
+          trigger: frm.hora
+        });
+        frm.hora.addEventListener('focus', function(){ 
+          tm.toggle();
+        });
+        frm.hora.addEventListener('onOk', function(){
+          this.value = moment(tm.time.toString()).format('HH:mm');
+        });        
       })
       .catch(err => console.log(err));
+
+      app.main.setAttribute('hidden', true);
+      app.containerForm.removeAttribute('hidden');
   };
 
   app.controller.abastecimento.abreFormEdicao = function(evt, id) { 
@@ -65,12 +87,35 @@ var CarcontrolApp = CarcontrolApp || {};
         app.containerForm.innerHTML = res;
         
         let frm = app.containerForm.querySelector('form');
-        DateHelper.setDatepicker(frm);
 
-        _service
-          .busca(id)
-          .then(abastecimento => new AbastecimentoView().populaForm(abastecimento, frm))
-          .catch(err => console.log(err));
+        let dt = new mdDateTimePicker.default({
+          type: 'date',
+          orientation: 'PORTRAIT',
+          trigger: frm.data
+        });
+        frm.data.addEventListener('focus', function(){ 
+          dt.toggle(); 
+        });
+        frm.data.addEventListener('onOk', function(){ 
+          this.value = moment(dt.time.toString()).format('DD/MM/YYYY');
+        });
+        
+        let tm = new mdDateTimePicker.default({ 
+          type: 'time',
+          mode: true,
+          orientation: 'PORTRAIT',
+          trigger: frm.hora
+        });
+        frm.hora.addEventListener('focus', function(){ 
+          tm.toggle();
+        });
+        frm.hora.addEventListener('onOk', function(){
+          this.value = moment(tm.time.toString()).format('HH:mm');
+        });
+
+        _service.busca(id)
+                .then(abastecimento => new AbastecimentoView().populaForm(abastecimento, frm))
+                .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
 
@@ -157,7 +202,6 @@ var CarcontrolApp = CarcontrolApp || {};
         app.containerForm.innerHTML = res;
         
         let frm = app.containerForm.querySelector('form');
-        DateHelper.setDatepicker(frm);
 
         let data = new Date();
         let dataIni = DateHelper.inicioDoMes(data);
@@ -165,10 +209,34 @@ var CarcontrolApp = CarcontrolApp || {};
         frm.dataIni.value = DateHelper.dataParaTexto(dataIni);
         frm.dataFim.value = DateHelper.dataParaTexto(dataFim);
 
-        _service
-          .buscaAbastecimentosPorPeriodo(dataIni, dataFim)
-          .then(abastecimentos => app.controller.abastecimento.geraGrafico(abastecimentos))
-          .catch(err => console.log(err));
+        let dtIni = new mdDateTimePicker.default({
+          type: 'date',
+          orientation: 'PORTRAIT',
+          trigger: frm.dataIni
+        });
+        frm.dataIni.addEventListener('focus', function(){ 
+          dtIni.toggle(); 
+        });
+        frm.dataIni.addEventListener('onOk', function(){ 
+          this.value = moment(dtIni.time.toString()).format('DD/MM/YYYY');
+        });        
+
+        let dtFim = new mdDateTimePicker.default({
+          type: 'date',
+          future: moment().add(1, 'years'),
+          orientation: 'PORTRAIT',
+          trigger: frm.dataFim
+        });
+        frm.dataFim.addEventListener('focus', function(){ 
+          dtFim.toggle(); 
+        });
+        frm.dataFim.addEventListener('onOk', function(){ 
+          this.value = moment(dtFim.time.toString()).format('DD/MM/YYYY');
+        });        
+
+        _service.buscaAbastecimentosPorPeriodo(dataIni, dataFim)
+                .then(abastecimentos => app.controller.abastecimento.geraGrafico(abastecimentos))
+                .catch(err => console.log(err));
 
         app.main.setAttribute('hidden', true);
         app.containerForm.removeAttribute('hidden');
