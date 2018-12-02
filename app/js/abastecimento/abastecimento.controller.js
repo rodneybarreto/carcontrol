@@ -46,36 +46,36 @@ var CarcontrolApp = CarcontrolApp || {};
         let frm = app.containerForm.querySelector('form');
         frm.data.value = moment().format('DD/MM/YYYY');
         frm.hora.value = moment().format('HH:mm');
-        
+
         let dt = new mdDateTimePicker.default({
           type: 'date',
           orientation: 'PORTRAIT',
           trigger: frm.data
         });
-        frm.data.addEventListener('focus', function(){ 
-          dt.toggle(); 
+        frm.data.addEventListener('focus', function(){
+          dt.toggle();
         });
-        frm.data.addEventListener('onOk', function(){ 
+        frm.data.addEventListener('onOk', function(){
           this.value = moment(dt.time.toString()).format('DD/MM/YYYY');
         });
-        
-        let tm = new mdDateTimePicker.default({ 
+
+        let tm = new mdDateTimePicker.default({
           type: 'time',
           mode: true,
           orientation: 'PORTRAIT',
           trigger: frm.hora
         });
-        frm.hora.addEventListener('focus', function(){ 
+        frm.hora.addEventListener('focus', function(){
           tm.toggle();
         });
         frm.hora.addEventListener('onOk', function(){
           this.value = moment(tm.time.toString()).format('HH:mm');
-        });        
+        });
+
+        app.main.setAttribute('hidden', true);
+        app.containerForm.removeAttribute('hidden');
       })
       .catch(err => console.log(err));
-
-      app.main.setAttribute('hidden', true);
-      app.containerForm.removeAttribute('hidden');
   };
 
   app.controller.abastecimento.abreFormEdicao = function(evt, id) { 
@@ -85,7 +85,7 @@ var CarcontrolApp = CarcontrolApp || {};
       .then(res => res.text())
       .then(res => {
         app.containerForm.innerHTML = res;
-        
+
         let frm = app.containerForm.querySelector('form');
 
         let dt = new mdDateTimePicker.default({
@@ -93,20 +93,20 @@ var CarcontrolApp = CarcontrolApp || {};
           orientation: 'PORTRAIT',
           trigger: frm.data
         });
-        frm.data.addEventListener('focus', function(){ 
-          dt.toggle(); 
+        frm.data.addEventListener('focus', function(){
+          dt.toggle();
         });
-        frm.data.addEventListener('onOk', function(){ 
+        frm.data.addEventListener('onOk', function(){
           this.value = moment(dt.time.toString()).format('DD/MM/YYYY');
         });
-        
-        let tm = new mdDateTimePicker.default({ 
+
+        let tm = new mdDateTimePicker.default({
           type: 'time',
           mode: true,
           orientation: 'PORTRAIT',
           trigger: frm.hora
         });
-        frm.hora.addEventListener('focus', function(){ 
+        frm.hora.addEventListener('focus', function(){
           tm.toggle();
         });
         frm.hora.addEventListener('onOk', function(){
@@ -116,11 +116,11 @@ var CarcontrolApp = CarcontrolApp || {};
         _service.busca(id)
                 .then(abastecimento => new AbastecimentoView().populaForm(abastecimento, frm))
                 .catch(err => console.log(err));
+
+        app.main.setAttribute('hidden', true);
+        app.containerForm.removeAttribute('hidden');
       })
       .catch(err => console.log(err));
-
-    app.main.setAttribute('hidden', true);
-    app.containerForm.removeAttribute('hidden');
   };
 
   app.controller.abastecimento.removeAbastecimento = function(evt) {
