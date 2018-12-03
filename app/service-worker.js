@@ -1,6 +1,6 @@
 const CACHE_NAME = 'carcontrol-arquivos';
 
-let version = 18;
+let version = 19;
 let arquivos = [
   '/',
   'index.html',
