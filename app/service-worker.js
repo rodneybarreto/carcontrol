@@ -40,20 +40,24 @@ let arquivos = [
   'js/abastecimento/abastecimento.controller.js'
 ];
 
-self.addEventListener('install', () => console.log('Service Worker instalado.'));
-
-self.addEventListener('activate', () => {
-  caches.open(CACHE_NAME +'-'+ version).then(cache => {
-    cache.addAll(arquivos)
-      .then(() => {
-        caches.delete(CACHE_NAME +'-'+ (version - 1));
-        caches.delete(CACHE_NAME);
-      });
-  });
+self.addEventListener('install', event => {
+  caches.open(CACHE_NAME +'-'+ version)
+    .then(cache => {
+      console.log('Cache aberto.');
+      console.log('Adicionando arquivos em cache...');
+      return cache.addAll(arquivos);
+    })
+    .then(() => console.log('Arquivos adicionados em cache.'))
+    .catch(err => console.log('Erro ao adicionar arquivos em cache.', err));
 });
 
-self.addEventListener('fetch', evt => {
-  let req = evt.request;
+self.addEventListener('activate', () => {
+  caches.delete(CACHE_NAME +'-'+ (version - 1));
+  caches.delete(CACHE_NAME);
+});
+
+self.addEventListener('fetch', event => {
+  let req = event.request;
   let pReq = caches.match(req).then(res => (res || fetch(req)));
-  evt.respondWith(pReq);
+  event.respondWith(pReq);
 });
