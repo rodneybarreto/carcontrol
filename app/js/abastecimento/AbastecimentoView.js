@@ -16,7 +16,7 @@ class AbastecimentoView {
         let total = obj.preco * obj.litros;
   
         return `
-          <div class="w3-panel w3-white w3-text-theme w3-card-2 w3-display-container">
+          <div class="w3-panel w3-leftbar w3-white w3-text-theme">
             <div class="w3-row">
               <div class="w3-col s6">
                 <p>
@@ -36,10 +36,10 @@ class AbastecimentoView {
               <div class="w3-show-inline-block w3-right">
                 <div class="w3-bar">
                   <a href="#" class="w3-button" onclick="CarcontrolApp.controller.abastecimento.abreFormEdicao(event, ${obj.id})">
-                    <i class="material-icons w3-large">edit</i>
+                    <i class="material-icons w3-xlarge">edit</i>
                   </a>
                   <a href="#" class="w3-button" onclick="CarcontrolApp.controller.abastecimento.abreDialog(event, ${obj.id})">
-                    <i class="material-icons w3-large">delete</i>
+                    <i class="material-icons w3-xlarge">delete</i>
                   </a>
                 </div>
               </div>
@@ -49,7 +49,7 @@ class AbastecimentoView {
       }).join('')}
       <footer class="w3-bottom cc-footer">
         <div class="w3-container" style="position: relative;">
-          <a class="w3-button w3-xlarge w3-circle w3-theme-action" 
+          <a class="w3-button w3-xxlarge w3-circle w3-theme-action" 
           style="position: absolute; top: -70px; right: 28px;" 
           href="#" onclick="CarcontrolApp.controller.abastecimento.abreFormInclusao(event)">+</a>
         </div>
@@ -60,7 +60,7 @@ class AbastecimentoView {
         ${this.registroNaoEncontrado()}
         <footer class="w3-bottom cc-footer">
           <div class="w3-container" style="position: relative;">
-            <a class="w3-button w3-xlarge w3-circle w3-theme-action" 
+            <a class="w3-button w3-xxlarge w3-circle w3-theme-action" 
             style="position: absolute; top: -70px; right: 28px;" 
             href="#" onclick="CarcontrolApp.controller.abastecimento.abreFormInclusao(event)">+</a>
           </div>
