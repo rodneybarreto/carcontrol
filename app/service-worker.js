@@ -1,7 +1,6 @@
-const CACHE_NAME = 'carcontrol-arquivos';
-
-let version = 22;
-let arquivos = [
+const VERSION = 23;
+const CACHE_NAME = `carcontrol-v${VERSION}`;
+const CACHE_FILES = [
   '/',
   'index.html',
   '404.html',
@@ -43,20 +42,20 @@ let arquivos = [
 self.addEventListener('install', () => console.log('Service Worker instalado.'));
 
 self.addEventListener('activate', () => {
-  caches.open(CACHE_NAME +'-'+ version)
+  caches.open(CACHE_NAME)
     .then(cache => {
       console.log('Novo cache aberto.');
       console.log('Adicionando arquivos no cache...');
-      return cache.addAll(arquivos);
+      return cache.addAll(CACHE_FILES);
     })
     .then(() => {
       console.log('Arquivos adicionados.');
       console.log('Removendo arquivos anteriores...');
       caches.keys()
         .then(arr => Promise.all(
-          arr.map(cacheName => { 
-            if ((CACHE_NAME+'-'+version).indexOf(cacheName) === -1) {
-              return caches.delete(cacheName);
+          arr.map(strCacheName => { 
+            if (CACHE_NAME.indexOf(strCacheName) === -1) {
+              return caches.delete(strCacheName);
             }
           })
         ))

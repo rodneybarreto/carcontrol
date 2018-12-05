@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-#version: 22
+#VERSION: 23
 
 CACHE:
 libs/md-date-time-picker/dist/css/mdDateTimePicker.min.css

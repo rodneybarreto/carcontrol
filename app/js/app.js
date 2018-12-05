@@ -1,22 +1,21 @@
 var CarcontrolApp = CarcontrolApp || {};
 
 (function(app, global){
-  'use strict';
 
-  app.abreSideBar = evt => {
+  app.abreSideBar = event => {
     app.w3sidebar.style.display = 'block';
     app.w3overlay.style.display = 'block';
   };
   
-  app.fechaSideBar = evt => {
+  app.fechaSideBar = event => {
     app.w3sidebar.style.display = 'none';
     app.w3overlay.style.display = 'none';
   };
 
-  app.menuGrafico = evt => {
-    evt.preventDefault();
+  app.menuGrafico = event => {
+    event.preventDefault();
 
-    let menu = evt.target;
+    let menu = event.target;
     let subMenu = menu.nextElementSibling;
 
     if (subMenu.classList.toggle('w3-show')) {

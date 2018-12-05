@@ -1,8 +1,6 @@
-'use strict';
-
 var CarcontrolApp = ({
 
-  isLoading: true,
+  isLoaded: true,
 
   w3sidebar: document.querySelector('#w3sidebar'),
   w3overlay: document.querySelector('#w3overlay'),
@@ -36,10 +34,10 @@ var CarcontrolApp = ({
       });
     }  
 
-    // Configuracao para loader e footer
-    if (this.isLoading) {
+    // Esconde o loader apos o carregamento da aplicacao
+    if (this.isLoaded) {
       this.loader.setAttribute('hidden', true);
-      this.isLoading = false;
+      this.isLoaded = false;
     }
     return this;
   }

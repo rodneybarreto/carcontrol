@@ -7,18 +7,18 @@ var CarcontrolApp = CarcontrolApp || {};
 
   let _service = new AbastecimentoService();
 
-  app.controller.abastecimento.abreDialog = function(evt, id) { 
-    evt.preventDefault();
+  app.controller.abastecimento.abreDialog = function(event, id) { 
+    event.preventDefault();
     app.dialog.querySelector('div p:nth-child(1)').textContent = 'Deseja excluir o abastecimento?';
     app.dialog.querySelector('div p:nth-child(2)').textContent = id;
     app.dialog
       .querySelector('div button:nth-child(2)')
-      .setAttribute('onclick', 'app.controller.abastecimento.removeAbastecimento(event)');
+      .setAttribute('onclick', 'CarcontrolApp.controller.abastecimento.removeAbastecimento(event)');
     app.dialog.style.display = 'block';
   };
 
-  app.controller.abastecimento.listaTodos = function(evt) {
-    evt.preventDefault();
+  app.controller.abastecimento.listaTodos = function(event) {
+    event.preventDefault();
 
     _service
       .buscaAbastecimentos()
@@ -35,8 +35,8 @@ var CarcontrolApp = CarcontrolApp || {};
       .catch(err => console.log(err));
   };
 
-  app.controller.abastecimento.abreFormInclusao = function(evt) {
-    evt.preventDefault();
+  app.controller.abastecimento.abreFormInclusao = function(event) {
+    event.preventDefault();
 
     fetch('html/abastecimento/formulario.html')
       .then(res => res.text())
@@ -78,8 +78,8 @@ var CarcontrolApp = CarcontrolApp || {};
       .catch(err => console.log(err));
   };
 
-  app.controller.abastecimento.abreFormEdicao = function(evt, id) { 
-    evt.preventDefault();
+  app.controller.abastecimento.abreFormEdicao = function(event, id) { 
+    event.preventDefault();
 
     fetch('html/abastecimento/formulario.html')
       .then(res => res.text())
@@ -123,10 +123,10 @@ var CarcontrolApp = CarcontrolApp || {};
       .catch(err => console.log(err));
   };
 
-  app.controller.abastecimento.removeAbastecimento = function(evt) {
-    evt.preventDefault();
+  app.controller.abastecimento.removeAbastecimento = function(event) {
+    event.preventDefault();
 
-    let paragrafo = evt.target.offsetParent.querySelector('div p:nth-child(2)');
+    let paragrafo = event.target.offsetParent.querySelector('div p:nth-child(2)');
     let id = parseInt(paragrafo.textContent, 10);
 
     _service
@@ -142,18 +142,18 @@ var CarcontrolApp = CarcontrolApp || {};
     app.dialog.style.display = 'none';
   };
 
-  app.controller.abastecimento.fechaForm = function(evt) {
-    evt.preventDefault();
+  app.controller.abastecimento.fechaForm = function(event) {
+    event.preventDefault();
     app.containerForm.setAttribute('hidden', true);
     app.containerForm.innerHTML = '';
     app.main.removeAttribute('hidden');
   };
 
-  app.controller.abastecimento.submitForm = function(evt) {
-    evt.preventDefault();
+  app.controller.abastecimento.submitForm = function(event) {
+    event.preventDefault();
     
     try {
-      let frm = evt.target.form;
+      let frm = event.target.form;
       new AbastecimentoView().validaForm(frm);
   
       // Cadastra
@@ -193,8 +193,8 @@ var CarcontrolApp = CarcontrolApp || {};
     }
   };
 
-  app.controller.abastecimento.abreFormGrafico = function(evt) {
-    evt.preventDefault();
+  app.controller.abastecimento.abreFormGrafico = function(event) {
+    event.preventDefault();
     
     fetch('html/abastecimento/formulario-grafico-combustiveis-utilizados.html')
       .then(res => res.text())
@@ -245,10 +245,10 @@ var CarcontrolApp = CarcontrolApp || {};
       .catch(err => console.log(err)); 
   };
 
-  app.controller.abastecimento.buscaAbastecimentosPorPeriodo = function(evt) {
-    evt.preventDefault();
+  app.controller.abastecimento.buscaAbastecimentosPorPeriodo = function(event) {
+    event.preventDefault();
 
-    let frm = evt.target.form;
+    let frm = event.target.form;
     let dataIni = DateHelper.textoParaData(frm.dataIni.value);
     let dataFim = DateHelper.textoParaData(frm.dataFim.value);
 
