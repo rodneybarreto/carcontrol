@@ -1,6 +1,6 @@
 const CACHE_NAME = 'carcontrol-arquivos';
 
-let version = 21;
+let version = 22;
 let arquivos = [
   '/',
   'index.html',
@@ -52,10 +52,16 @@ self.addEventListener('activate', () => {
     .then(() => {
       console.log('Arquivos adicionados.');
       console.log('Removendo arquivos anteriores...');
-      for (let i = 0; i < version; i++) {
-        caches.delete(CACHE_NAME +'-'+ i);
-      }
-      console.log('Arquivos anteriores removidos.');
+      caches.keys()
+        .then(arr => Promise.all(
+          arr.map(cacheName => { 
+            if ((CACHE_NAME+'-'+version).indexOf(cacheName) === -1) {
+              return caches.delete(cacheName);
+            }
+          })
+        ))
+        .then(() => console.log('Arquivos anteriores removidos.'))
+        .catch(err => console.log('Erro ao remover arquivos anteriores', err));
     })
     .catch(err => console.log('Erro ao adicionar arquivos no cache.', err));  
 });
