@@ -1,6 +1,6 @@
 const CACHE_NAME = 'carcontrol-arquivos';
 
-let version = 20;
+let version = 21;
 let arquivos = [
   '/',
   'index.html',
@@ -40,20 +40,24 @@ let arquivos = [
   'js/abastecimento/abastecimento.controller.js'
 ];
 
-self.addEventListener('install', event => {
-  caches.open(CACHE_NAME +'-'+ version)
-    .then(cache => {
-      console.log('Cache aberto.');
-      console.log('Adicionando arquivos em cache...');
-      return cache.addAll(arquivos);
-    })
-    .then(() => console.log('Arquivos adicionados em cache.'))
-    .catch(err => console.log('Erro ao adicionar arquivos em cache.', err));
-});
+self.addEventListener('install', () => console.log('Service Worker instalado.'));
 
 self.addEventListener('activate', () => {
-  caches.delete(CACHE_NAME +'-'+ (version - 1));
-  caches.delete(CACHE_NAME);
+  caches.open(CACHE_NAME +'-'+ version)
+    .then(cache => {
+      console.log('Novo cache aberto.');
+      console.log('Adicionando arquivos no cache...');
+      return cache.addAll(arquivos);
+    })
+    .then(() => {
+      console.log('Arquivos adicionados.');
+      console.log('Removendo arquivos anteriores...');
+      for (let i = 0; i < version; i++) {
+        caches.delete(CACHE_NAME +'-'+ i);
+      }
+      console.log('Arquivos anteriores removidos.');
+    })
+    .catch(err => console.log('Erro ao adicionar arquivos no cache.', err));  
 });
 
 self.addEventListener('fetch', event => {

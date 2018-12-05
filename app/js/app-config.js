@@ -28,10 +28,12 @@ var CarcontrolApp = ({
     );
 
     if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || isLocalhost)) {
-      navigator.serviceWorker
-        .register('./service-worker.js')
-        .then(reg => console.log('Service Worker Registirado.'))
-        .catch(err => console.log('Falha ao registrar o Service Worker.'));
+      window.addEventListener('load', function() {
+        navigator.serviceWorker
+          .register('./service-worker.js')
+          .then(reg => console.log('Service Worker Registrado.'))
+          .catch(err => console.log('Erro ao registrar o Service Worker.', err));
+      });
     }  
 
     // Configuracao para loader e footer
