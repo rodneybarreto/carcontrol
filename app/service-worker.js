@@ -1,11 +1,10 @@
-const VERSION = 23;
+const VERSION = 24;
 const CACHE_NAME = `carcontrol-v${VERSION}`;
 const CACHE_FILES = [
   '/',
   'index.html',
   '404.html',
   'manifest.json',
-  'cache.manifest',
   'libs/md-date-time-picker/dist/css/mdDateTimePicker.min.css',
   'css/app.css',
   'libs/md-date-time-picker/dist/images/ic_keyboard_arrow_left_black_24px.svg',
