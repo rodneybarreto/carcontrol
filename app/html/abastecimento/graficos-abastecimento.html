@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="../../libs/md-date-time-picker/dist/css/mdDateTimePicker.min.css">
+  <link rel="stylesheet" href="../../css/app.css">
+  <title>Carcontrol</title>
+</head>
+<body class="w3-theme-l4">
+
+  <!-- Barra fixa no topo da pagina -->
+  <header class="w3-container w3-top w3-theme w3-large">
+    <form>
+      <p>
+        <div class="w3-row">
+          <div class="w3-col s2">
+            <i class="fa fa-arrow-left w3-theme"></i>
+          </div>
+          <div class="w3-col s1">
+            <i class="fa fa-calendar w3-theme w3-right" style="margin-right: 3px;"></i>
+          </div>
+          <div class="w3-col s4">
+            <input class="w3-input w3-tiny cc-field-data" type="text" name="dataIni" id="dataIni" 
+            placeholder="Data inicial" value="" onkeyup="DateHelper.formataData(event)" maxlength="10" 
+            tabindex="1" required />
+          </div>
+          <div class="w3-col s1">
+            <i class="fa fa-calendar w3-theme w3-right" style="margin-right: 3px;"></i>
+          </div>
+          <div class="w3-col s4">
+            <input class="w3-input w3-tiny cc-field-data" type="text" name="dataFim" id="dataFim" 
+            placeholder="Data final" value="" onkeyup="DateHelper.formataData(event)" maxlength="10" 
+            tabindex="2" required />
+          </div>
+        </div>
+      </p>
+    </form>
+  </header>
+
+  <!-- Conteudo -->
+  <main class="w3-container w3-content"></main>  
+
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', {'packages':['corechart']});
+  </script>
+  <script src="../../libs/md-date-time-picker/dist/js/moment.min.js"></script>
+  <script src="../../libs/md-date-time-picker/dist/js/lang/pt-br.js"></script>
+  <script src="../../libs/md-date-time-picker/dist/js/draggabilly.pkgd.min.js"></script>
+  <script src="../../libs/md-date-time-picker/dist/js/mdDateTimePicker.min.js"></script>
+  <script src="../../js/helper/DateHelper.js"></script>
+  <script src="../../js/helper/NumberHelper.js"></script>
+  <script src="../../js/service/ConnectionFactory.js"></script>
+  <script src="../../js/abastecimento/Abastecimento.js"></script>
+  <script src="../../js/abastecimento/AbastecimentoBuilder.js"></script>
+  <script src="../../js/abastecimento/AbastecimentoDao.js"></script>
+  <script src="../../js/abastecimento/AbastecimentoService.js"></script>
+  <script src="../../js/abastecimento/graficos-abastecimento.js"></script> 
+</body>
+</html>
