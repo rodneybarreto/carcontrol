@@ -5,10 +5,7 @@ var CarcontrolApp = CarcontrolApp || {};
   app.controller = app.controller || {};
   app.controller.abastecimento = app.controller.abastecimento || {};
 
-  let containerChart = document.querySelector('.w3-content');
-
-  const service = new AbastecimentoService();
-
+  let containerChart = document.querySelector('.cc-container-chart');
   let frm = document.querySelector('form');
 
   let data = new Date();
@@ -40,12 +37,8 @@ var CarcontrolApp = CarcontrolApp || {};
   });
   frm.dataFim.addEventListener('onOk', function(){ 
     this.value = moment(dtFim.time.toString()).format('DD/MM/YYYY');
-  }); 
-
-  service.buscaAbastecimentosPorPeriodo(dataIni, dataFim)
-    .then(abastecimentos => app.controller.abastecimento.geraGrafico(abastecimentos))
-    .catch(err => console.log(err));
-
+  });
+  
   app.controller.abastecimento.geraGrafico = function(abastecimentos) {
     
     if (abastecimentos.length > 0) {
@@ -78,8 +71,17 @@ var CarcontrolApp = CarcontrolApp || {};
     } else {
       containerChart.innerHTML = new AbastecimentoView().registroNaoEncontrado();
     }
-    // app.containerChart.removeAttribute('hidden');
   };  
-
-
+  
 }(CarcontrolApp, this));
+
+window.onload = function(event) {
+  let frm = document.querySelector('form');
+  let dataIni = DateHelper.textoParaData(frm.dataIni.value);
+  let dataFim = DateHelper.textoParaData(frm.dataFim.value);
+
+  const service = new AbastecimentoService();
+  service.buscaAbastecimentosPorPeriodo(dataIni, dataFim)
+    .then(abastecimentos => CarcontrolApp.controller.abastecimento.geraGrafico(abastecimentos))
+    .catch(err => console.log(err));
+};
