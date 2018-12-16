@@ -39,6 +39,14 @@ var CarcontrolApp = CarcontrolApp || {};
     this.value = moment(dtFim.time.toString()).format('DD/MM/YYYY');
   });
   
+  const dataI = DateHelper.textoParaData(frm.dataIni.value);
+  const dataF = DateHelper.textoParaData(frm.dataFim.value);
+
+  const _service = new AbastecimentoService();
+  _service.buscaAbastecimentosPorPeriodo(dataI, dataF)
+    .then(abastecimentos => app.controller.abastecimento.geraGrafico(abastecimentos))
+    .catch(err => console.log(err));
+
   app.controller.abastecimento.geraGrafico = function(abastecimentos) {
     
     if (abastecimentos.length > 0) {
@@ -74,14 +82,3 @@ var CarcontrolApp = CarcontrolApp || {};
   };  
   
 }(CarcontrolApp, this));
-
-document.querySelector('#dataFim').addEventListener('select', function(event){
-  const frm = event.target.form;
-  const dataIni = DateHelper.textoParaData(frm.dataIni.value);
-  const dataFim = DateHelper.textoParaData(frm.dataFim.value);
-
-  const service = new AbastecimentoService();
-  service.buscaAbastecimentosPorPeriodo(dataIni, dataFim)
-    .then(abastecimentos => CarcontrolApp.controller.abastecimento.geraGrafico(abastecimentos))
-    .catch(err => console.log(err));
-});
