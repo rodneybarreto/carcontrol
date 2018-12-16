@@ -75,13 +75,13 @@ var CarcontrolApp = CarcontrolApp || {};
   
 }(CarcontrolApp, this));
 
-window.onload = function(event) {
-  let frm = document.querySelector('form');
-  let dataIni = DateHelper.textoParaData(frm.dataIni.value);
-  let dataFim = DateHelper.textoParaData(frm.dataFim.value);
+document.querySelector('#dataFim').addEventListener('select', function(event){
+  const frm = event.target.form;
+  const dataIni = DateHelper.textoParaData(frm.dataIni.value);
+  const dataFim = DateHelper.textoParaData(frm.dataFim.value);
 
   const service = new AbastecimentoService();
   service.buscaAbastecimentosPorPeriodo(dataIni, dataFim)
     .then(abastecimentos => CarcontrolApp.controller.abastecimento.geraGrafico(abastecimentos))
     .catch(err => console.log(err));
-};
+});

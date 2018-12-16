@@ -1,4 +1,4 @@
-const VERSION = 24;
+const VERSION = 25;
 const CACHE_NAME = `carcontrol-v${VERSION}`;
 const CACHE_FILES = [
   '/',
@@ -21,6 +21,7 @@ const CACHE_FILES = [
   'img/carcontrol-icon-192x192.png',
   'html/abastecimento/formulario.html',
   'html/abastecimento/formulario-grafico-combustiveis-utilizados.html',
+  'html/abastecimento/graficos-abastecimento.html',
   'libs/md-date-time-picker/dist/js/moment.min.js',
   'libs/md-date-time-picker/dist/js/lang/pt-br.js',
   'libs/md-date-time-picker/dist/js/draggabilly.pkgd.min.js',
@@ -33,9 +34,10 @@ const CACHE_FILES = [
   'js/abastecimento/AbastecimentoDao.js',
   'js/abastecimento/AbastecimentoService.js',
   'js/abastecimento/AbastecimentoView.js',
+  'js/abastecimento/graficos-abastecimento.js',
+  'js/abastecimento/abastecimento.controller.js',
   'js/app-config.js',
-  'js/app.js',
-  'js/abastecimento/abastecimento.controller.js'
+  'js/app.js'
 ];
 
 self.addEventListener('install', () => console.log('Service Worker instalado.'));
