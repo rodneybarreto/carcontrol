@@ -20,7 +20,7 @@
     <form>
       <p>
         <div class="w3-row">
-          <div class="w3-col s2">
+          <div class="w3-col s1">
             <i class="fa fa-arrow-left w3-theme"></i>
           </div>
           <div class="w3-col s1">
@@ -39,6 +39,10 @@
             placeholder="Data final" value="" onkeyup="DateHelper.formataData(event)" maxlength="10" 
             tabindex="2" required />
           </div>
+          <div class="w3-col s1">
+            <button class="w3-button w3-theme" 
+            onclick="CarcontrolApp.controller.abastecimento.abreGrafico(event)">Ok</button>
+          </div>          
         </div>
       </p>
     </form>

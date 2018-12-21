@@ -38,15 +38,7 @@ var CarcontrolApp = CarcontrolApp || {};
   frm.dataFim.addEventListener('onOk', function(){ 
     this.value = moment(dtFim.time.toString()).format('DD/MM/YYYY');
   });
-  
-  const dataI = DateHelper.textoParaData(frm.dataIni.value);
-  const dataF = DateHelper.textoParaData(frm.dataFim.value);
-
-  const _service = new AbastecimentoService();
-  _service.buscaAbastecimentosPorPeriodo(dataI, dataF)
-    .then(abastecimentos => app.controller.abastecimento.geraGrafico(abastecimentos))
-    .catch(err => console.log(err));
-
+ 
   app.controller.abastecimento.geraGrafico = function(abastecimentos) {
     
     if (abastecimentos.length > 0) {
@@ -79,6 +71,17 @@ var CarcontrolApp = CarcontrolApp || {};
     } else {
       containerChart.innerHTML = new AbastecimentoView().registroNaoEncontrado();
     }
+  };  
+
+  app.controller.abastecimento.abreGrafico = function(event) {
+    const frm = event.target.form;
+    const dataIni = DateHelper.textoParaData(frm.dataIni.value);
+    const dataFim = DateHelper.textoParaData(frm.dataFim.value);
+  
+    const _service = new AbastecimentoService();
+    _service.buscaAbastecimentosPorPeriodo(dataIni, dataFim)
+      .then(abastecimentos => app.controller.abastecimento.geraGrafico(abastecimentos))
+      .catch(err => console.log(err));
   };  
   
 }(CarcontrolApp, this));
